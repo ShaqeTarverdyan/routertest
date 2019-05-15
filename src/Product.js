@@ -6,7 +6,7 @@ const Product = (props) => {
         return(
             <div className='main'>
                     {props.products.map((product,index) =>
-                        <Link to={'/product/'  + index}>
+                        <Link to={'/product/'  + product.id}>
                             <div
                                 key={product.name}
                                 className='productCard'
