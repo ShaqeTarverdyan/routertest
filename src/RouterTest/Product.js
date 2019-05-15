@@ -10,7 +10,7 @@ class Product extends React.Component {
             <>
                 {
                     this.props.products.map((product, index) =>
-                        <Link to={'product/' + (index +1)}>
+                        <Link to={'product/' + product.id}>
                             <div
                                 falseId={falseId++}
                                 key={product.index}
