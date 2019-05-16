@@ -1,19 +1,16 @@
 import React from 'react';
 import './AppStyle.css';
-import Products from './Products';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
 
 class Product extends React.Component {
     render() {
-        let falseId = 0;
         return (
             <>
                 {
-                    this.props.products.map((product, index) =>
+                    this.props.products.map(product =>
                         <Link to={'product/' + product.id}>
                             <div
-                                falseId={falseId++}
-                                key={product.index}
+                                key={product.id}
                                 className='productCard'
                             >
                                 <p>productName --- {product.name}</p>

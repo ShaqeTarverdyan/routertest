@@ -1,23 +1,21 @@
 import React from 'react';
 import './AppStyle.css';
 import { Route, BrowserRouter as Router, Redirect,Switch, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class ProductContent extends React.Component {
-    redirect = () => <Redirect to="/products" />
-    
-    onDelete = () => {
-        const product = this.getProduct();
-        this.props.onDelete(product.id);
-       
-    }
+    // deleteProduct = () => {
+    //     this.props.deleteProduct(this.props.prods.id);
+    // }
+    redirect = () => <Redirect to='/products'/>
+
     getProduct = () => {
         const {params} = this.props.match;
-        const product = this.props.products.filter(product => product.id == params.id)[0];
+        const product = this.props.prods.filter(product => product.id == params.id)[0];
         return product;
     }
     render() {    
         const product = this.getProduct();
-        console.log('product', product);
         return (
             product ?
             <div className='produactContent'>
@@ -30,11 +28,42 @@ class ProductContent extends React.Component {
                 <p className='description'> 
                     {product.description}
                 </p>
-                <button onClick={this.onDelete}>Delete</button>
+                <button onClick={() => this.props.deleteProduct(product.id)}>Delete</button>
             </div> :  this.redirect()
              
         );
     }
 }
 
-export default ProductContent;
+const mapStateToProps = state => {
+    return {
+        prods: state.products
+    };
+}
+const mapDispatchToProps  = dispatch => {
+    return {
+        deleteProduct:(id) => dispatch({type:'DELETE_PRODUCT',deletedItemId:id }),
+    };
+}
+export default connect(mapStateToProps,mapDispatchToProps)(ProductContent);
+
+
+
+
+// const NewProductAction = {
+//     type: "DELETE_PRODUCT",
+//     payload: {
+//         id: "Vahe",
+//     }
+// };
+
+
+// const store = {
+//     products: []
+// }
+
+// const reducer = function(NewProductAction) {
+//     if (NewProductAction.type == 'NEW_PRODUCT') {
+//         store.products.push([name: NewProductAction.payload.name]);
+//     }
+// }

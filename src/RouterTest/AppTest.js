@@ -9,6 +9,9 @@ import Home from './Home';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
 import Footer from './Footer';
 import AddProduct from './AddProduct';
+import { connect } from 'react-redux';
+
+
 
 
 class Apptest extends React.Component {
@@ -61,21 +64,10 @@ class Apptest extends React.Component {
                         <Switch>
                             <Route path='/' exact component={Home} />
                             <Route path='/about' component={About} />
-                            <Route path='/products' render={() => <Products products={this.state.products} />} />
+                            <Route path='/products' render={() => <Products products={this.props.prods} />} />
                             <Route path='/contact' component={Contact} />
-                            <Route path='/addProduct' render={() =>
-                                <AddProduct
-                                    product={this.state.product}
-                                    products={this.state.products}
-                                    onSubmit={this.addProduct}
-                                    onChange={this.updateProduct} />}
-                            />
-                            <Route path='/product/:id' render={(props) => 
-                                <ProductContent 
-                                    {...props} 
-                                    products={this.state.products} 
-                                    onDelete={this.deleteProduct}
-                                    />} />
+                            <Route path='/addProduct' component={AddProduct }/>
+                            <Route path='/product/:id' component={ProductContent }/>
                         </Switch>
                     </div>
                     <Footer />
@@ -85,4 +77,17 @@ class Apptest extends React.Component {
     }
 }
 
-export default Apptest;
+const mapStateToProps = state => {
+    return {
+        prods:state.products,
+        prod:state.product
+    }
+}
+// const mapDispatchToProps  = dispatch => {
+//     return {
+//         updateProduct: () => dispatch({type:'UPDATE_PRODUT'}),
+//         addProduct: () => dispatch({type:'ADD_PRODUCT'}),
+//         deleteProduct:() => dispatch({type:'DELETE_PRODUCT'}),
+//     };
+// }
+export default connect(mapStateToProps)(Apptest);
