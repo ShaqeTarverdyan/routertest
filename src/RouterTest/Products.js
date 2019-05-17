@@ -7,9 +7,7 @@ class Products extends React.Component {
     render() {
         return (
             <div className='products'>
-                <Product
-                    products={this.props.products}
-                />
+                <Product/>
             </div>
         );
     }

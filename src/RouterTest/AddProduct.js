@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 
 class AddProduct extends React.Component {
 
-    updateProduct = (event) => {
-        this.props.updateProduct(event);
-    }
+    // updateProduct = (event) => {
+    //     this.props.updateProduct(event);
+    // }
 
     addProduct = (event) => {
         event.preventDefault();
@@ -21,20 +21,19 @@ class AddProduct extends React.Component {
 
                     <input
                         placeholder='Product Name'
-                        onChange={this.updateProduct}
+                        onChange={this.props.updateProduct}
                         name='name'
                         value={this.props.prod.name}
-
                     />
                     <input
                         placeholder='Price'
-                        onChange={this.updateProduct}
+                        onChange={this.props.updateProduct}
                         name='price'
                         value={this.props.prod.price}
                     />
                     <textarea
                         name='description'
-                        onChange={this.updateProduct}
+                        onChange={this.props.updateProduct}
                         rows='15'
                         cols='80'
                         placeholder='Add description...'

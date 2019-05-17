@@ -1,13 +1,14 @@
 import React from 'react';
 import './AppStyle.css';
 import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom';
+import { connect }  from 'react-redux'; 
 
 class Product extends React.Component {
     render() {
         return (
             <>
                 {
-                    this.props.products.map(product =>
+                    this.props.prods.map(product =>
                         <Link to={'product/' + product.id}>
                             <div
                                 key={product.id}
@@ -25,5 +26,9 @@ class Product extends React.Component {
         );
     }
 }
-
-export default Product;
+const mapStateTOProps = state => {
+    return {
+        prods:state.products
+    }
+}
+export default connect(mapStateTOProps)(Product);
